@@ -1,0 +1,1103 @@
+\documentclass[12pt]{article}
+
+\usepackage{fouriernc}%la fuente
+%\usepackage[sc]{mathpazo} %antigua fuente
+
+\usepackage[utf8]{inputenc}
+
+\usepackage[a4paper,width=150mm,top=25mm,bottom=25mm]{geometry}
+\usepackage{booktabs}
+
+\usepackage{subfiles} %esto es para modularizar el overleaf
+%para usar este paquete solamente hay que usar el comando
+%\subfile{}
+
+\usepackage{graphicx}
+
+\graphicspath{{./Figuras/}} %esto es para que encuentre las figuras hechas con pdf_tex en inkscape
+
+
+\usepackage{framed}
+\usepackage[dvipsnames]{xcolor} %agrega mas colores para xcolor.
+
+\usepackage{xparse}
+\usepackage{xstring}
+
+\usepackage{stmaryrd} %para poner el comando \mapsfrom "<---|"
+
+\usepackage{amssymb}
+
+\usepackage{amsmath}
+
+\usepackage{subfig}
+
+\usepackage{mathrsfs} % para tener las fuentes \mathscr que es una letra mayuscula cursiva.
+
+\usepackage{tikz-cd}
+
+\usepackage{caption} %es para captionoffigure
+
+\usepackage[shortlabels]{enumitem}
+
+\usetikzlibrary{babel} %CAUSA PROBLEMAS PARA COMPILAR TIKZCD QUE USA "" PARA DESIGNAR CADA TEXTO DE UNA FLECHA. SE ARREGLA USANDO \usetikzlibrary{babel} despues de \usepackage{tikz-cd}.
+
+\usepackage[english,activeacute]{babel} %CAUSA PROBLEMAS PARA COMPILAR TIKZCD QUE USA "" PARA DESIGNAR CADA TEXTO DE UNA FLECHA. SE ARREGLA USANDO \usetikzlibrary{babel} despues de \usepackage{tikz-cd}.
+
+\usepackage{braket} %para definir \set , \Set y que los conjuntos se vean mas lindos
+
+\usepackage{mathtools}
+
+\usepackage{mathabx}
+\let\widering\relax %esto es porque hay problemas con el comando \widering que se define en la fuenta fouriernc y en el paquete \usepackage{mathabx}
+
+\usepackage[shortlabels]{enumitem}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=red,
+    filecolor=red,
+    linkcolor=red,
+    urlcolor=red
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsthm}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{proposition/definition}[theorem]{Proposition/Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{afirmacion}[theorem]{Assertion}
+\newtheorem{recuerdo}[theorem]{Reminder}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{hypothesis}[theorem]{hypothesis}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{obs}[theorem]{Observation}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{construction}[theorem]{Construction}
+
+
+%por alguna razon el teorema $warning  est aen uso, asi que lo remuevo de maqnera trucha
+\newtheorem{warn}[theorem]{\textbf{WARNING}}
+\renewenvironment{warning}{\begin{warn}}{\end{warn}}
+
+%crear ejercicio
+\newtheorem{exercise}[theorem]{Exercise}
+%solución
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+
+
+%como crear un nuevo ambiente de teorema o proposición que este sobreado con un recuadro de "color". primero hacemos
+
+%\newenvironment{Theorem}{\colorlet{shadecolor}{color} \begin{shaded} \begin{theorem} }{ \end{theorem} \end{shaded} }
+
+%Notar que primero hay que definir el color del sobreado con el comando
+%"\colorlet{shadecolor}{color}" y luego hay que usar el environment "shaded". Adentro de este ponemos el environment que queremos, en nuestro caso queremos "pintar" el environment "\begin{theorem}".
+
+
+%se puede cambiar la tonalidad de un color "yellow!80" es el color amarillo pero al 80%  y el 20% es mezclado con blanco, i.e. está aclarado. Pero "yellow!80!Black" es 80% amarillo y 20% negro, i.e. es obscurecido 20%.
+
+\newenvironment{Definition}{\colorlet{shadecolor}{Apricot!12} \begin{shaded} \begin{definition} }{ \end{definition} \end{shaded} }
+
+\newenvironment{Example}{\colorlet{shadecolor}{Goldenrod!16} \begin{shaded} \begin{example}}{ \end{example} \end{shaded}}
+
+\newenvironment{Remark}{\colorlet{shadecolor}{Orchid!12} \begin{shaded} \begin{remark}}{ \end{remark} \end{shaded}}
+
+\newenvironment{Warning}{\colorlet{shadecolor}{red!12} \begin{shaded} \begin{warning}}{ \end{warning} \end{shaded}}
+
+\newenvironment{Conjecture}{\colorlet{shadecolor}{magenta!16} \begin{shaded} \begin{conjecture}}{ \end{conjecture} \end{shaded}}
+
+\newenvironment{Theorem}{\colorlet{shadecolor}{OliveGreen!18} \begin{shaded} \begin{theorem}}{ \end{theorem} \end{shaded}}
+
+\newenvironment{Lemma}{\colorlet{shadecolor}{LimeGreen!12} \begin{shaded} \begin{lemma}}{ \end{lemma} \end{shaded}}
+
+\newenvironment{Proposition}{\colorlet{shadecolor}{Green!12} \begin{shaded} \begin{proposition}}{ \end{proposition}\end{shaded}}
+
+\newenvironment{Corollary}{\colorlet{shadecolor}{TealBlue!16} \begin{shaded} \begin{corollary}}{ \end{corollary} \end{shaded}}
+
+\newenvironment{Obs}{\colorlet{shadecolor}{Dandelion!22} \begin{shaded} \begin{obs}}{ \end{obs} \end{shaded}}
+
+\newenvironment{Exercise}{\colorlet{shadecolor}{Lavender!12} \begin{shaded} \begin{exercise}}{ \end{exercise} \end{shaded}}
+
+\newenvironment{Construction}{\colorlet{shadecolor}{Brown!20!Red!10} \begin{shaded} \begin{construction}}{ \end{construction} \end{shaded}}
+
+%%%%%COLORES%%%%%%%%%%%%
+%Hay varios comandos del paquete Xcolor:
+%\color{blue,green,red,yellow,orange,black,white,pink,purble,etc...} hace que
+%todo el bloque de texto se transforme en este color, se puede encerrar entre llaves bloque de texto que uno quiere colorear
+%\textcolor{color}{text} escribe el texto "text" en "color".
+%\colorbox{color}{text} pinta un rectangulo de "color" detrás del "text".
+%\shaded
+
+
+
+%lista de colores base de xcolor, como son colores de la extension del paquetem, empiezan con la primera letra mayuscula: si usaramos solo el paquete {xcolor} entonces no sería necesario.
+
+%red, Green (fluorecente), Blue (muy obscuro), Cyan, Magenta, Yellow, Black, Gray, lightgray, White, darkgray, lightgray, Brown, lime (este verde mas lindo manzana), olive (marron verdoso feo), Orange, pink, Purple, teal (verde marino), Violet
+
+%marco los colores lindos: red, Cyan, Magenta, Yellow, Black, Gray, White,  lime, Orange, pink, teal, Violet
+
+%Colores que incluye el paquete dvipsnames: Apricot (color beige), Brown, Goldenrod, JungleGreen, Salmon, Lavender, SpringGreen, Turquoise, Plum, Emerald, BurntOrange (naranja piola), ForestGreen (verde oscuro), BrickRed (rojo obscuro)
+
+
+\newcommand{\red}[1]{\textcolor{BrickRed}{#1}}
+
+\newcommand{\green}[1]{\textcolor{SpringGreen}{#1}}
+
+\newcommand{\blue}[1]{\textcolor{Cyan}{#1}}
+
+\newcommand{\yellow}[1]{\textcolor{yellow!80!Black}{#1}} %se puede cambiar la tonalidad de un color "yellow!80" es el color amarillo pero al 80%  y el 20% es mezclado con blanco, i.e. está aclarado. Pero "yellow!80!Black" es 80% amarillo y 20% negro, i.e. es obscurecido 20%.
+
+\newcommand{\black}[1]{\textcolor{Black}{#1}}
+
+\newcommand{\gray}[1]{\textcolor{Gray}{#1}}
+
+\newcommand{\purple}[1]{\textcolor{Purple}{#1}}
+
+\newcommand{\beige}[1]{\textcolor{Apricot}{#1}}
+
+\newcommand{\darkgreen}[1]{\textcolor{ForestGreen}{#1}}
+
+\newcommand{\pink}[1]{\textcolor{Lavender}{#1}}
+
+\newcommand{\salmon}[1]{\textcolor{Salmon}{#1}}
+
+\newcommand{\brown}[1]{\textcolor{RawSienna}{#1}}
+
+\newcommand{\white}[1]{\textcolor{White}{#1}}
+
+\newcommand{\orange}[1]{\textcolor{BurntOrange}{#1}}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%Teoría de Grupos%%%%%%%%%%%%
+
+%Grupo simétrico de n elementos
+\newcommand{\SymGrp}[1]{\mathbb{S}_{#1}}
+%Grupo alternado de n elementos
+\newcommand{\AltGrp}[1]{\mathbb{A}_{#1}}
+
+%Orden de un elemento $a \in G$ de un grupo
+\newcommand{\ord}[1]{\operatorname{ord} (#1)}
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%Polinomios%%%%%%%%%%%%%%%%%%%%
+
+
+%grado de una extensión algebraica
+\newcommand{\degExt}[2]{[#1:#2]}
+\newcommand{\degSep}[2]{[#1 : #2]_s}
+\newcommand{\degInsep}[2]{[#1:#2]_i}
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%grupos de matrices
+%SL
+\newcommand{\SL}[2]{\operatorname{SL}_{#1} ( #2)}
+%GL
+\newcommand{\GL}[2]{\operatorname{GL}_{#1} ( #2)}
+
+%GLL
+\newcommand{\GLL}{\operatorname{GL}}
+
+%matriz identidad
+\newcommand{\Id}{\operatorname{Id}}
+
+
+
+%enteros Z
+\newcommand{\integers}{\mathbb{Z}}
+%racionales
+\newcommand{\rationals}{\mathbb{Q}}
+%naturales
+\newcommand{\naturals}{\mathbb{N}}
+%reales R
+\newcommand{\reals}{\mathbb{R}}
+%imaginarios
+\newcommand{\complex}{\mathbb{C}}
+%p-adicos
+\newcommand{\padics}{\mathbb{Q}_p}
+%enteros p-adicos
+\newcommand{\padicintegers}{\mathbb{Z}_p}
+
+%cuerpos finitos
+%Fp
+\newcommand{\Fp}{\mathbb{F}_p}
+%Fq
+\newcommand{\Fq}{\mathbb{F}_q}
+
+
+
+%valor absoluto
+\newcommand{\abs}[1]{\left \vert #1 \right \vert}
+%valor absoluto con dos barras
+\newcommand{\Abs}[1]{\left \vert \left \vert #1 \right \vert \right \vert}
+
+%valuacion p-adica
+\newcommand{\val}[1]{\operatorname{val} (#1)}
+
+%Hom
+\newcommand{\Hom}{\operatorname{Hom}}
+
+%imagen y núcleo
+\newcommand{\Imagen}{\operatorname{Im}}
+\newcommand{\Ker}{\operatorname{Ker}}
+
+%coker
+\newcommand{\Coker}{\operatorname{Coker}}
+
+%limite inverso
+\newcommand{\liminv}{\varprojlim}
+
+
+%un poco de typeset para categorias
+\newcommand{\catname}[1]{{\operatorfont\textbf{#1}}}
+
+%flecha de isomorfismo a derecha corto \isomrightarrow
+\newcommand{\isomrightarrow}{\overset{\sim}{\rightarrow}}
+%flecha de isomorfismo a derecha largo \isomrightarrow
+\newcommand{\isomlongrightarrow}{\overset{\sim}{\longrightarrow}}
+
+%flecha de isomorfismo a izquierda corto \isomleftarrow
+\newcommand{\isomleftarrow}{\overset{\sim}{\leftarrow}}
+%flecha de isomorfismo a izquierda largo \isomleftarrow
+\newcommand{\isomlongleftarrow}{\overset{\sim}{\longleftarrow}}
+
+
+\renewcommand{\hat}[1]{\widehat{#1}}
+\renewcommand{\bar}[1]{\overline{#1}}
+\renewcommand{\tilde}[1]{\widetilde{#1}}
+
+%declaro un comando nuevo para escribir restricción de funciones
+\newcommand\rest[2]{{% we make the whole thing an ordinary symbol
+  \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
+  #1 % the function
+  \vphantom{\big|} % pretend it's a little taller at normal size
+  \right|_{#2} % this is the delimiter
+  }}
+
+
+%%%%   COMANDO ALGEBRA CONMUTATIVA   %%%%
+
+%altura de un ideal:
+\newcommand{\height}{\textsc{height}}
+
+%Clausura topológica
+\newcommand{\closure}[1]{\overline{#1}}
+
+%longitud de un A-modulo. Notacion: \length_A M
+\newcommand{\length}{\operatorname{length}}
+
+%Anulador de un $A$-módulo.
+\newcommand{\Ann}[1]{\operatorname{Ann} (#1)}
+
+%Cuerpo de fracciones. Notacion $\FracField A$.
+\newcommand{\FracField}[1]{\operatorname{Fr} (#1)}
+
+\newcommand{\Spec}[1]{\operatorname{Spec}(#1)}
+
+%conjunto de Lugares de un cuerpo
+\newcommand{\places}[1]{\mathcal{Pl} (#1)}
+
+
+
+
+
+
+
+
+
+%%%%   COMANDO TEORÍA DE NÚMEROS  %%%%
+
+%Morfismo de Frobenius
+\newcommand{\Frob}{\operatorname{Frob}}
+
+%Grupo de Galois
+\newcommand{\Gal}[2]{\operatorname{Gal} ( #1 / #2 )}
+
+%Discriminante
+\newcommand{\discriminant}[1]{\mathfrak{d} (#1 )}
+\newcommand{\disc}{\operatorname{d}}
+\newcommand{\Disc}[3]{\operatorname{D}_{#1 / #2} (#3)}
+
+%%%%Ideales primos%%%
+%escribe una letra en notación mathfrak, para denotar a un ideal o elemento primo.
+
+\newcommand{\primo}[1]{\mathfrak{#1}}
+\newcommand{\Primo}[1]{\mathfrak{\MakeUppercase{#1}}}
+
+%anillo de enteros O_K
+\renewcommand{\O}{\mathcal{O}}
+%anillo de enteros con subindice de cuerpo (input, por ejemplo $K$).
+\newcommand{\integralring}[1]{O_{#1}}
+
+%caracteristica de un cuerpo Char k
+\newcommand{\Char}[1]{\operatorname{Char} #1}
+
+%traza. Notación \trace = Tr
+\newcommand{\trace}{\operatorname{Tr}}
+
+%Traza de extensiones. Notación \Tr L K \alpha = \operatorname{Tr}_{L/K} (\alpha)
+\newcommand{\Tr}[1]{\operatorname{Tr}_{L/K} (#1)} %la extension es L/K por default
+
+
+%Norma de extensiones. Notación \Norm L K \alpha = \operatorname{N}_{L/K} (\alpha)
+\newcommand{\Norm}[1]{\operatorname{N}_{L/K} (#1)}%la extension es L/K por default
+\newcommand{\norm}[3]{\operatorname{N}_{#1/#2} (#3)}
+
+
+
+%minimo común multiplo
+\DeclareMathOperator{\lcm}{lcm}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%   COMANDO ANÁLISIS  %%%%
+
+%espacio de las funciones continuas
+\newcommand{\Cont}{\mathcal C}
+
+%espacio de las funciones continuas con soporte compacto
+\newcommand{\Contc}{\mathcal C_c}
+
+%definimos el diferencial d de la integral "\int f(x) \dd x"
+\newcommand*\dd{\mathop{}\!\mathrm{d}}
+
+%definimos mas diferenciales
+\newcommand{\dmu}[1]{\dd \mu (#1)}
+\newcommand{\dnu}[1]{\dd \nu (#1)}
+\newcommand{\dtheta}[1]{\dd \theta (#1)}
+\newcommand{\dxi}[1]{\dd \xi (#1)}
+\newcommand{\deta}[1]{\dd \eta (#1)}
+
+%definimos una integral ya mas automatica (EL DIFERENCIAL SE AGREGA AL FINAL)
+\newcommand{\Int}[2]{\int_{#1} #2 }
+%definimos una integral doble ya mas automatica (EL DIFERENCIAL SE AGREGA AL FINAL)
+\newcommand{\IInt}[2]{\iint_{#1} #2 }
+%definimos una integral triple ya mas automatica (EL DIFERENCIAL SE AGREGA AL FINAL)
+\newcommand{\IIInt}[2]{\iiint_{#1} #2}
+
+
+%Volumen
+\newcommand{\Vol}[1]{\operatorname{Vol} (#1)}
+
+
+%Soporte de una funcion
+\newcommand{\Supp}[1]{\operatorname{Supp} (#1)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%this presentation
+\newcommand{\sep}[1]{{#1}^{\operatorname{sep}}}
+
+\newcommand{\ur}[1]{{#1}^{\operatorname{ur}}}
+
+\newcommand{\tr}[1]{{#1}^{\operatorname{tr}}}
+
+\newcommand{\inercia}[1]{\mathcal I_{#1}}
+
+\newcommand{\wild}[1]{\mathcal P_{#1}}
+
+\newcommand{\weil}[1]{\mathcal W_{#1}}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+\title{The Weil group}
+\author{Enzo Giannotta}
+
+
+
+
+
+
+\begin{document}
+
+\maketitle
+
+%--------------------------------- ACA VA LA TABLA DE CONTENIDOS
+
+\tableofcontents
+
+%---------------------------------
+
+
+\section{Introduction}
+
+Given a local field $F$, we can consider a separable closure $\sep F$ of $F$. We have already seen that the Galois group $\Gal { \sep F} F$ is a \textit{profinite} group with the \textit{krull topology}; we call this group the \textbf{absolute Galois group} of $F$, and denote it by $G_F$. This group encapsulates the arithmetic information of $F$, so it is natural for us to study it. A very fruitful technique to study groups is studying its \textit{representations}, i.e., studying group homomorphisms $G_F \to \operatorname{Aut}_F (V)$, where $V$ is an $F$-vector space (not necessarily finite dimensional) and $\operatorname{Aut}_F (V)$ is its group of $F$-automorphisms; typically we take $F = \complex$ and restrict ourselves to \textit{continuous representations}, for example, when $V$ has $\dim_{\complex} (V) = 1$ we want $G_F \to \operatorname{Aut}_\complex (V) \cong \complex^\times$ to be continuous with the usual topology on $\complex^\times$; in this case the image is finite! In other words, we don't have many representations of $G_F$. This presents a problem, because having a richer availability of representations would help us understand better the group $G_F$; a solution: constructing a subgroup $\weil F$ of $G_F$, with a topology (different from the subspace topology!) such that it is a locally compact topological group with a neighbourhood basis for the identity made of compact open subgroups (this is called a \textbf{locally profinite group}); $\weil F$ will be called the \textbf{Weil group} of $F$; being locally profinite means that we have ``more'' representations.
+
+\section{Notation}
+
+Let $L/F$ be an algebraic field extension of a local nonarquimidean field $F$, such that if $\abs \cdot _v$ is the absolute value of $F$, it can be extended uniquely by the absolute value $\abs \cdot _w$ of $L$. In this context, let $\O_F = \set{x \in F | \abs x _v \leq 1}$ the \textbf{valuation ring} of $F$; it has only one non zero prime ideal $\primo p_{F} = \set{x \in F | \abs x _v < 1}$, generated by one element $\varpi_F$ (it is not unique, nor canonical), named \textit{a} \textbf{uniformizer} of $F$. Similarly, we have for $L$ the objects $\O_L, \primo p_L$ and $\varpi_L$. We can form the \textbf{residual field} of $F$, and similarly of $L$, it is the quotient $\kappa_F = \O_F / \primo p_F$. The inclusion $\O_F \subset \O_L$ induces an embedding $\kappa_F \subset \kappa_L$. Notice that $\kappa_L / \kappa_F$ is algebraic because $L/F$ is. By definition of local field, we have that $\kappa_F$ is a finite field, say $\mathbb{F}_q$ (in particular, $F$ is \textit{perfect}); the characteristic of $\kappa_p$ is a prime $p> 0$, called the \textbf{residual characteristic} of $F$, therefore $\# \kappa_F = q = p^r$ for some $r \in \naturals$.
+
+When $L = \sep {F}$, we have $\kappa_L = \bar \kappa_F$, i.e., the \textit{algebraic closure} of $\kappa_F$.
+
+
+\section{Unramified extensions}
+
+\begin{Definition}
+A \underline{finite} algebraic extension $L/F$ is said to be \textbf{unramified}, if
+\[
+    [L : F] = [\kappa_L : \kappa_F].
+\]
+When $L/F$ is not necessarily finite, we will say that it is \textbf{unramified} if it is the union of finite unramified subextensions $K/F$ of $L$.
+\end{Definition}
+
+Consider an automorphism $\sigma \in \Gal {L} F$, then $\sigma : \O_L \to \sigma_ L$ is well defined and $\sigma (\primo p _L) = \primo p _L$. Therefore, quotient by $\primo p _L$ induces a $\kappa_F$-automorphism $\bar \sigma : \kappa_L \to \kappa_L, \bar \sigma ([x]) = [\sigma (x)]$ in $\Gal {\kappa_L} {\kappa_F}$. In other words, we have an homomorphism:
+\begin{align*}
+\Gal L F &\longrightarrow \Gal {\kappa_L} {\kappa_F} \\
+\sigma &\longmapsto \bar \sigma.
+\end{align*}
+In fact, it's not hard to see that it is surjective. In general, when $L/F$ is not unramified, this map is not injective, however:
+
+\begin{obs}\label{obs:if L/F is finite unramified then it is isomorphic to its galois group}
+Let $L/F$ be a finite unramified extension. Then $\sigma \mapsto \bar \sigma$ is an isomorphism between $\Gal L F$ and $\Gal {\kappa_L} {\kappa_F}$, because both groups have the same cardinality.
+\end{obs}
+
+\begin{proposition}\label{proposition: unramified extensions behave well in towers}
+Let $L$ and $K$ be to algebraic extensions of $F$. If $L/F$ is unramified, then $LK /K$ is too. If $L' \subset L$ is a subextension, then $L' /F$ is unramified.
+
+Moreover, if $L/K$ and $K/F$ are both algebraic and unramified, then $L/F$ is algebraic and unramified.
+\end{proposition}
+\begin{proof}
+Without loss of generality we may assume that $L/F$ is finite. Then $\kappa_L / \kappa_F$ is also finite, and because it is separable, there exists a primitive element $\beta = \bar \alpha \in \kappa_L$, with $\alpha \in \O_L$ and $\bar \alpha$ is its residual class, such that $\kappa_L = \kappa_F (\beta) = \kappa_F (\bar \alpha)$. Let $f \in \O_F$ be the minimal polynomial of $\alpha$ over $F$ and $\bar f(X) \in \kappa_F [X]$ its reduction $\mod \primo{p}_F$. Because
+\[
+    [\kappa_L : \kappa_F] \leq \deg {\bar f} = \deg f = [F(\alpha) : F] \leq [L : F] \overset{\text{$L/F$ is unramified}}{=} [\kappa_L : \kappa_F],
+\]
+we can conclude that each inequality is in fact an equality and that $L = F (\alpha)$ and $\bar f$ is the minimal polynomial of $\bar \alpha$ over $\kappa_F$.
+
+Thus, we have $L K = K (\alpha)$. So, in order to prove that $K (\alpha)/K$ is unramified, let $g \in \O_K$ be the minimal polynomial of $\alpha$ over $K$ and $\bar g \in \kappa_K$ its reduction $\mod \primo p _K$. $\bar g$ must be irreducible over $\kappa_K$, if not, Hensel's Lemma \ref{Apendice:Hensel's Lemma} would imply that $g$ is reducible over $\O_{K}$. We obtain:
+\[
+    [\kappa_{K (\alpha)}: \kappa_K] \leq [K (\alpha) : K] = \deg g = \deg {\bar g} = [\kappa_{K} (\bar \alpha) : \kappa_K] \leq [\kappa_{K (\alpha)} : \kappa_K].
+\]
+This implies $[K (\alpha): K] = [\kappa_{K (\alpha)} : \kappa_K]$, i.e., $K (\alpha)/K$ is unramified.
+
+\bigskip
+
+If $K/F$ is a subextension of an unramified extension $L/F$, then it follows from what we have just proven that $L/K$ is unramified, hence so is $K/F$ by the formula for the degree.
+
+\bigskip
+
+Let $L/K$ and $K/F$ be two algebraic unramified extensions. Without loss of generality, we may assume that both are finite. Then $L /F$ is unramified because degrees of field (and residue field) extensions are multiplicative.
+\end{proof}
+
+\begin{corollary}
+The composition of two unramified extensions is unramified.
+\end{corollary}
+\begin{proof}
+Without loss of generality, it is enough to show that given to finite unramified extensions $L/F$ and $L'/F$, then $LL'/F$ is also unramified. Last proposition implies that $L L'/L'$ is unramified. Also, $L'/K$ is unramified, then again, by last proposition (last part), we have that $LL'/F$ is unramified.
+\end{proof}
+
+\begin{definition}
+Let $L/F$ be an algebraic extension. Then the composition of all unramified subextensions of $L$ over $F$ is again unramified, and it is the unique maximal unramified subextension of $L$ over $F$, denoted by $\ur L \subset L$.
+
+In particular, when $L = \sep F$, we will write $\ur F$ instead of $\ur L$; we will simply call it the \textbf{maximal unramified extension} of $F$ (in $\sep F$).
+\end{definition}
+
+\begin{Proposition}\label{proposition:if L/F is algebraic then kappa_Lur = kappa_L}
+Let $L/F$ be an algebraic extension. Then
+\[
+    \kappa_{\ur L} = \kappa_L.
+\]
+
+In particular, when $L = \sep F$, we have
+\[
+    \kappa_{\ur F} = \kappa_{\sep F} = \bar \kappa_F.
+\]
+
+\end{Proposition}
+\begin{proof}
+Let $\bar \alpha \in \kappa_L$ with ($\alpha \in \O_L$), we have to show that $\bar \alpha \in \kappa_{\ur L}$. Let $\bar f \in \kappa_F [X]$ be the minimal polynomial of $\bar \alpha$ in $\kappa_F$ and $f\in \O_F [X]$ a monic polynomial such that $\bar f = f \mod \primo p_F$. Then $f(X)$ must be irreducible because $\bar f$ is, and by Hensel's Lemma \ref{Apendice:Hensel's Lemma}, it has a root $\alpha$ in $L$ such that $\bar \alpha \equiv \alpha \mod \primo p_L$, i.e., $[F(\alpha) : F] = [\kappa_F (\bar \alpha) : \kappa_F]$. This means that $F(\alpha)/F$ is unramified, so that $F(\alpha) \subset \ur L$, thus $\bar \alpha$ is in fact inside $\kappa_{\ur F}$.
+\end{proof}
+
+
+\begin{obs}\label{observation:urF is generated by all roots of unity of order m coprime to p}
+$\ur F$ contains all the roots of unity of order $m$ coprime to $p = \Char \kappa_F$ because the separable polynomial $X^m - 1$ splits completely over $\bar \kappa_F$, thus over $\ur F$ thanks to Hensel's Lemma (see the Appendix \ref{Apendice:Hensel's Lemma}). Because $\kappa_F$ is finite, the subextensions of $\ur F / F$ are generated by this roots of unity because $\bar{\kappa_F} /\kappa_F$ is.
+
+Conversely, if $L/F$ is a finite unramified extension of degree $m \geq 1$ with $L \subset \sep F$, then in the first paragraph in the proof of Proposition \ref{proposition: unramified extensions behave well in towers}, we actually prove that $L = F(\alpha)$ for some $\alpha \in F$ such that its minimal polynomial $f$ is the lift of the minimal polynomial $\bar f$ of $\bar \alpha$, and $\kappa_{L} = \kappa_F (\bar \alpha)$. Because $\kappa_F$ is a finite field of order $q$, and $\kappa_L / \kappa_F$ is a finite extension of degree $[L:F] = m$, $\bar \alpha$ is a primitive $(q^m-1)$-th root of unity, so is $\alpha$.
+
+In summary, there is a $1-1$ correspondence between finite subextensions of $\ur F$ over $F$ of degree $m \geq 1$ and extensions of $F$ generated by a primitive $(q^m-1)$-th root of unity, say $\zeta_{q^m-1}$, more specifically: $F (\zeta_{q^{m}-1})$.
+\end{obs}
+
+
+
+
+\section{Tamely ramified extensions}
+
+
+Now we will weaken the definition of unramified extension and get analogous results as the previous section. The proofs can be found in Chapter II, Section 7 of \cite{neukirch2013algebraicNumberTheory}.
+
+\begin{definition}
+A \underline{finite} algebraic extension $L/F$ is said to be \textbf{tamely ramified}, if
+\[
+    p \not \mid [L : \ur L].
+\]
+When $L/F$ is not necessarily finite, we will say that it is \textbf{tamely ramified} if every finite subextension $L' / \ur L$ has $p \not \mid [L' : \ur L]$.
+\end{definition}
+
+\begin{obs}
+Note that when $L/F$ is finite, both definitions coincide with the usual ones related to the \textit{ramification index} $e(L/F)$ of $F$ over $L$:
+\begin{align*}
+L/F \text{ is unramified} \quad &\Leftrightarrow \quad e(L/F) = 1, \\
+L/F \text{ is tamely ramified} \quad &\Leftrightarrow \quad p \not \mid e(L/F).
+\end{align*}
+\end{obs}
+
+\begin{proposition}\label{proposition:how are the tamely ramified extensions of a field F - they are generated by the radicals}
+Every finite extension $L/F$ is tamely ramified if and only if $L/\ur L $ is generated by radicals:
+\[
+    L = \ur L (\sqrt[m_1]{a_1} , \ldots, \sqrt[m_r]{a_r}) \quad \text{with $p \not \mid m_i$}.
+\]
+\end{proposition}
+
+\begin{corollary}
+Let $L$ and $K$ be to algebraic extensions of $F$. If $L/F$ is tamely ramified, then $LK /K$ is too. If $L' \subset L$ is a subextension, then $L' /F$ is tamely ramified.
+\end{corollary}
+
+\begin{corollary}
+The composition of two tamely ramified extensions is tamely ramified.
+\end{corollary}
+
+
+
+\begin{definition}
+Let $L/F$ be an algebraic extension. Then the composition of all tamely ramified subextensions is again tamely ramified, and it is the unique maximal tamely ramified subextension of $L$ over $F$, denoted by $\tr L \subset L$.
+
+In particular, when $L = \sep F$, we will write $\tr F$ instead of $\tr L$; we will simply call it the \textbf{maximal tamely ramified extension} of $F$ (in $\sep F$).
+\end{definition}
+
+\begin{proposition}
+Let $L/F$ be an algebraic extension. Then
+\[
+    \kappa_{\tr L} = \kappa _.
+\]
+
+In particular, when $L = \sep F$, we have $\kappa_{\ur F} = \bar \kappa_F$.
+\end{proposition}
+
+In summary, we have the following diagram:
+\[
+\begin{tikzcd}
+    L \ar[d, no head]& \kappa_L \ar[d, "\bigcup", phantom]\\
+    \tr L \ar[d, no head]& \kappa_L \ar[d, Rightarrow, no head] \\
+    \ur L \ar[d, no head]& \kappa_L \ar[d, no head]\\
+    \kappa_F & \kappa_F
+\end{tikzcd}
+\]
+
+\section{An example}
+
+\begin{Example}
+If $F = \padics$ and $L = \padics (\zeta_n)$, where $\zeta_n$ is a primitive $n$-th root of unity such that $n = n' p^m, p \not \mid n'$. Then $\ur L = \padics (\zeta_{n'})$ and $\tr L = \ur L (\zeta_p)$.
+
+Moreover, $\ur \padics = \padics (\zeta_n : p \not \mid n)$, and $\tr \padics = \ur \padics (\sqrt[m] p : p \not \mid m)$.
+\end{Example}
+
+In order to give a detailed proof of the example, we will need some previous results:
+
+\begin{proposition}\label{proposition:an example - proposition 1}
+Let $L := F (\zeta)$, where $\zeta$ is a primitive $n$-th root of unity. Suppose $p \not \mid n$. Then, the extension $L/F$ is unramified of degree $f$, where $f$ is the smallest natural number such that $q^f \equiv 1 \mod n$.
+\end{proposition}
+\begin{proof}
+If $\phi (X)$ is the minimal polynomial of $\zeta$ over $F$, then the reduction $\bar \phi (X)$ is the minimal polynomial of $\bar \zeta = \zeta \mod \primo p_L$ over $\kappa_F$. Indeed, being a divisor of $X^n - \bar 1$, $\bar \phi$ is separable, and by Hensel's Lemma \ref{Apendice:Hensel's Lemma} cannot split into factors. Both $\phi$ and $\bar \phi$ have the same degree, so $[L : K] = [\kappa_F (\bar \zeta) : \kappa] = [\kappa_L : \kappa_F] =: f$. Therefore, $L/F$ is unramified. The polynomial $X^n - 1$ splits over $\O_L$ and thus (because $p \not \mid n$) over $\kappa_L$ into distinct linear factors, so that $\kappa_F = \mathbb{F}_{q^f}$ contains the group $\mu_n$ of $n$-th roots of unity and is generated by it. Consequently, $f$ is the smallest number such that $\mu_n \subset \mathbb F_{q^f}^\times$, i.e., such that $n \mid q^f - 1$.
+\end{proof}
+
+\begin{proposition}\label{proposition:an example - proposition 2}
+Let $\zeta$ be a primitive $p^m$-th root of unity. Then $\padics (\zeta) /\padics $ is totally ramified of degree $\varphi (p^m) := (p-1)p^{m-1}$.
+\end{proposition}
+\begin{proof}
+Let $\xi = \zeta^{p^{m-1}}$, it is a primitive $p$-th root of unity, i.e.,
+\[
+    \xi^{p-1} + \xi^{p-2} + \cdots + 1 = 0,
+\]
+hence,
+\[
+    \zeta^{(p-1)p^{m-1}} + \zeta^{(p-2)p^{m-1}} + \cdots + 1 = 0.
+\]
+Denote $\phi (X) := X^{(p-1)p^{m-1}} + X^{(p-2)p^{m-1}} + \cdots + 1$, then $\zeta - 1$ is a root of the equation $\phi (X + 1) = 0$. But this is irreducible by Eisenstein criterion: $\phi (1) = p$ and
+\[
+    \phi (X) \equiv \frac{X^{p^m-1}}{X^{p^{m-1}}-1} = (X-1)^{p^{m-1}(p-1)} \mod p.
+\]
+It follows that $[\padics (\zeta): \padics] = \varphi (p^m)$.
+\end{proof}
+
+Now, let's prove the example:
+\begin{proof}[Proof of the example]
+Let $F = \padics$ and $L = \padics (\zeta_n)$ with $n = n' p^m$ for some $n'$ coprime with $p$. Let $K := \padics (\zeta_{p^m})$, notice that because $n'$ and $p^m$ are coprime, then $L = K (\zeta_{n'})$\footnote{use Bezout's identity: $\alpha n' + \beta p^m = 1$ for some $\alpha,\beta \in \integers$.}, thus by Proposition \ref{proposition:an example - proposition 1}, $L / K$ is an unramified extension of degree $f$, where $f$ is the smallest number such that $q_K^f \equiv 1 \mod n'$, where $q_K$ is the cardinality of $\kappa_K$; however, by Proposition \ref{proposition:an example - proposition 2}, $K/F$ is \textit{totally ramified}, that means that $q_L = \# \kappa_L = \# \kappa_{F} = p$ (in fact, it means that $[\kappa_L : \kappa_F] = [L : K ] = f$). In other words, $f$ is the smallest number such that $p^f \equiv 1 \mod n'$. Again, by Proposition \ref{proposition:an example - proposition 1}, $\padics (\zeta_{n'})/\padics$ is an unramified extension of degree $f'$, where $f'$ is the smallest natural number such that $p^{f'} \equiv 1 \mod n'$, i.e., $ f' = f$. Finally, to see that $\ur L = \padics (\zeta_{n'})$, it is enough to show that $\ur L /F$ has the same index over $F$ as $\padics (\zeta_{n'})$. Indeed, by Proposition \ref{proposition:if L/F is algebraic then kappa_Lur = kappa_L}, $[\kappa_{\ur L} : \kappa_F] = [\kappa_L : \kappa_F] = f$, but $\ur L / F$ is unramified, so $[\kappa_{\ur L }: \kappa_L] = [\ur L : F]$. This concludes that $\padics (\zeta_{n'}) = \ur L$.
+
+\bigskip
+
+By what we have already discussed and because last proposition says that $[K: L] = (p-1)p^{m-1}$, we have $[L : F] = f (p-1)p^{m-1}$.
+
+Proposition \ref{proposition:an example - proposition 2}, implies that $F ( \zeta_p)$ is tamely ramified because it has degree $p-1$, which is coprime to $p$; therefore $\ur L (\zeta_p) \subset \tr L$. In order to see that there is in fact equality, notice that $\tr L/ F$ is tamely ramified, in particular $\tr L/ \ur L (\zeta_p) $ too. It divides $[L : \ur L (\zeta_p)] = p^{m-1}$. But tamely ramified extensions have degree prime to $p$ (the characteristic of its residual field), so $[\tr L : \ur L (\zeta_p)] = 1$, i.e. $\tr L = \ur L (\zeta_p)$.
+
+\bigskip
+
+The last assertion of the example is a particular case of Observation \ref{observation:urF is generated by all roots of unity of order m coprime to p} and Proposition \ref{proposition:how are the tamely ramified extensions of a field F - they are generated by the radicals}.
+\end{proof}
+
+
+
+\section{The Weil group}
+
+
+Again we introduce the profinite group with its Krull topology $G_F := \Gal {\sep F} F$ with $F$ a local field; the sets $\Gal {\sep F} E \subset G_F$ with $E/F$ finite and $E  \subset \sep F$ are open. Remember that it is the projective limit $\varprojlim_E \Gal E F$ over the finite Galois extensions $E/F$ with $E \subset \sep F$.
+
+\begin{obs}\label{obs:write Gal Fur /F as a projective limit}
+ Because $\ur F = \lim_{E \longrightarrow} E/F$ is the direct limit of the finite unramified extensions $E / F$ with $E \subset \sep F$ and taking Galois groups is a contra-variant functor, one can check that
+ \[
+     \Gal {\ur F } F = \varprojlim_{E \text{ unramified }/F} \Gal E F.
+ \]
+\end{obs}
+\begin{proof}
+Indeed, consider $H = \Gal {\ur F} F$ as a topological group with its Krull topology; we have homomorphisms $\psi_E : H \to \Gal E F, \sigma \mapsto \rest \sigma E$ indexed by the preordered (in fact \textit{directed}) set of unramified finite extensions of $F$ inside $\sep F$, ordered by inclusion; more over, they are continuous ($\Gal E F$ has the discrete topology): let $\tau \in \Gal E F$ be extended to $\tilde \tau \in \Gal {\ur F} F$, then $\psi_E^{-1} (\tau) = \tilde \tau \Gal {\ur F} E$, which is a basic open of the Krull topology.
+
+Let $T_E := \Gal E F$, we form the projective system $(T_E, \varphi_{E \subset E'})$, with the restriction maps $\varphi_{E \subset E'} : \Gal {E'} F \to \Gal E F, \sigma \mapsto \rest \sigma E$. Obviously $(H, \psi_E)$ is compatible with the projective system $(T_E, \varphi_{E \subset E'})$, i.e., the next diagram commutes:
+\[
+    \begin{tikzcd}
+    &H\ar[dl, "\psi_E'"'] \ar[rd, "\psi_E"]&\\
+    T_{E'} \ar[rr, "\varphi_{E \subset E'}"'] & & T_E
+    \end{tikzcd}
+\]
+
+Therefore, by the Universal property of the projective limit \ref{Apendice:universal property - projective limit}, there is a unique map $\psi : H  \to \varprojlim\limits_{E / F \text{ finite unramified}} T_E$ such that for each $E / F$ finite unramified, the diagram
+\[
+    \begin{tikzcd}
+    H \ar[r, "\psi"] \ar[rd, "\psi_E"']& \varprojlim\limits_{E/F \text{ finite unramified}} T_E \ar[d, "p_E"]\\
+    & T_E
+    \end{tikzcd}
+\]
+also commutes. Being $p_E$ the projection to the $E$-th coordinate in the Cartesian product $\prod_{E / F \text{ finite unramified}} \Gal {E} F \supset \varprojlim_{E/F} T_E$, the last diagram says that
+\[
+    (\psi (\sigma))_E = \rest \sigma E , \quad \forall \sigma \in H = \Gal {\ur F} F.
+\]
+Also, it is guaranteed that $\psi : E \to \varprojlim_E T_E$ is continuous (see the last part of the Appendix \ref{Apendice:universal property - projective limit}).
+
+\bigskip
+
+Now we show that $\psi$ is a bijection:
+\begin{enumerate}
+\item[\textbf{Injectivity:}] Suppose $\sigma \in H$ is in $\Ker \psi$, then for any $x \in \ur F$, we have that there is a finite unramified extension $E$ such that $x \in E$, because $\ur F$ is unramified and by the definition of unramified extension. Then
+\[
+    \sigma (x) = (\rest \sigma E) (x) = (\psi (\sigma))_E (x) = (p_E (\psi (\sigma)))(x) = x,
+\]
+because $\psi (\sigma)$ is the identity element in $\varprojlim_E T_E$. Because $x$ was arbitrary, this proves that $\sigma$ is the identity element in $H = \Gal {\ur F} F$, therefore $\psi$ is injective.
+
+\item[\textbf{Surjectivity:}] $\psi$ is a continuous and $H$ is compact (it is a profinite group), so the image of $\psi$ is compact, then is closed because $\varprojlim_E T_E$ is Hausdorff (it is also a profinite group by definition). Therefore, it is enough show that the image of $\psi$ is dense to show surjectivity. Indeed, the basic opens in the product topology are of the form
+\[
+    \prod_{E \in S} \{ \sigma_E\} \times \prod_{E \not \in S} T_E,
+\]
+where $S$ is a finite set of finite unramified extensions $E/F$; because the set of indices are directed by the inclusion, we may assume that $S$ contains a maximal element $E'$ such that $E \subset E'$ is an unramified extension of $F$ if and only if $E \in S$. Therefore, the basic opens of $\varprojlim_E T_E$ are of the form
+\[
+    U_{E'} := \left (\prod_{E \subset E'} \{\rest{\tau}{E}\} \times \prod_{E \not \subset E'} T_E \right ) \cap \varprojlim_E T_E,
+\]
+where $E'$ is some finite unramified extension of $F$ and $\tau \in \Gal {E'} F$. Now, clearly any extension $\tilde \tau $ to $\ur F$ of $\tau$ satisfies that $\psi (\tilde \tau) \in U_{E'}$, i.e., the image of $\psi$ intersects the basic open $U_{E'}$. This proves that the image of $\psi$ is dense, therefore $\psi$ is surjective.
+\end{enumerate}
+
+Finally, $\psi$ is a closed map because it is continuous with domain a compact space and codomain a Hausdorff space. This show that the bijective continuous map $\psi$ is in fact an homeomorphism.
+\end{proof}
+
+
+Because the finite unramified extensions $E/F$ are in $1-1$ correspondence with finite extensions over $\kappa_F$ of degree $m \geq 1$, which we know have cyclic Galois group canonically generated by the \textit{Frobenius automorphism} $x \mapsto x^q$ with $q = \# \kappa_F$, we can see that
+\[
+ \Gal {\ur F} F \cong \varprojlim_m \integers /m \integers = \hat \integers.
+\]
+(Remember that the profinite topological group $\hat \integers$ is the \textbf{profinite integers}).
+
+In particular, there exists a unique element $\Phi_F \in \Gal {\ur F} F$ which coincides with the inverse of the Frobenius automorphism in each $\Gal E F$. We will call it \textit{the} \textbf{geometric Frobenius}.\footnote{We could have chosen $\Phi_F$ as the unique element which coincides with the Frobenius automorphism in each $\Gal E F$, however, we will take the convention of using the geometric Frobenius.} More explicitly, for any finite unramified extension $E/F$ we have
+\begin{equation}\label{eq:action of a frobenius element (not geometric)}
+\Phi_F^{-1} (x) \equiv x^{q} \mod \primo p_E, \quad \forall x \in \O_E,
+\end{equation}
+where $q = \# \kappa_F$, equivalently,
+\[
+    \Phi_F (x) \equiv x^{q^{f-1}} \mod \primo p_E, \quad \forall x \in \O_E,
+\]
+where $f = [E: F] = \# \Gal E F$.
+
+
+\begin{definition}
+Lets take the restriction map
+\begin{align*}
+  U : G_F = \Gal {\sep F} F &\longrightarrow \Gal {\ur F} F \\
+ \sigma &\longmapsto \rest{\sigma}{\ur F}.
+\end{align*}
+Then, we say that $\varphi \in G_F$ is \textit{a} \textbf{geometric Frobenius element} (over $F$), if $U(\varphi) = \Phi_F$.
+\end{definition}
+
+\begin{warning}
+$\varphi$ is not unique! In fact, if we fix a choice $\varphi_0$ of geometric Frobenius element, then all the other geometric elements are of the form $\inercia F \cdot \varphi_0$, where $\inercia F := \Gal {\sep F} {\ur F}$ is the \textbf{inertia group} of $F$.
+\end{warning}
+
+Notice that the inertia group $\inercia F$ is a closed subgroup of $G_F$, thus it is a profinite group with the subspace topology (which is the Krull topology).
+
+\begin{proposition}\label{proposition:for each t coprime with p Fur has a unique finite extension Et of degree t}
+For each $t \geq 1, p \not \mid t$, $\ur F$ has a unique finite extension $E_t / \ur F$ of degree $t$. It is of the form
+\[
+    E_t = \ur F ( \sqrt[t] {\varpi_F}).
+\]
+Moreover,
+\begin{align*}
+    \Gal {E_t} {\ur F} &\longrightarrow \mu_t (\ur F) \\
+    \sigma &\longmapsto \frac{\sigma (\sqrt [t] {\varpi_F})}{\sqrt[t] {\varpi_F}}
+\end{align*}
+is a canonical isomorphism.\footnote{In general, $\mu_t (K)$ denotes the multiplicative group of $t$-th roots of unity in field $K$. If $p$ denotes the characteristic of $K$, when $p \not \mid t$ and $K$ contains all the roots of $X^t - 1$, then $\mu_t (K) \cong \integers / t \integers$. This happens in our case $K = \ur F$).}
+\end{proposition}
+\begin{proof}
+If $E = F (\sqrt[t]{\varpi_F})$ then $\varpi := \sqrt[t]{\varpi_F}$ has minimal polynomial $X^t - \varpi_F$, which is an Eisenstein polynomial, thus irreducible, so $E/F$ is a finite extension of degree $t$.
+
+Conversely, suppose $E/\ur F$ is a finite extension of degree $t$ coprime to $p$. By Proposition \ref{proposition:if L/F is algebraic then kappa_Lur = kappa_L}, $t = [E : \ur F] = [\kappa_E, \kappa_{\ur F}]$, so $E/\ur F$ is \textit{totally ramified}, this means that $t = e(E / \ur F)$, i.e., $u \varpi_F = \varpi_E^t$ for some unit $u \in \O_E^\times$ ($\varpi_F$ is an uniformizer of $\ur F$ because $\ur F / F$ is unramified).
+
+Now consider $f (X) = X^t - u \in \O_E [X]$, because $\bar f \in \kappa_E [X]$ is separable ($p \not \mid t$) and $\kappa_E = \kappa_{\ur F} = \bar \kappa_F$ (Proposition \ref{proposition:if L/F is algebraic then kappa_Lur = kappa_L}) $\bar f$ has a root in $\kappa_E$, Hensel's Lemma \ref{Apendice:Hensel's Lemma} implies that there is a root $r$ of $f$ in $\O_E$. Let $\varpi = \varpi_E/r$. Then $\abs {\varpi}_E = 1$, so it is an uniformizer of $E$ and $L = \ur F (\varpi)$; also, $\varpi^t = \varpi_E^t / r^t = \varpi_E^t / u = \varpi_F$, i.e., $L = \ur F ( \sqrt[t]{\varpi_F})$ as desired.
+
+\bigskip
+
+To see that $\sigma \mapsto \frac{\sigma (\sqrt[t]{\varpi_F})}{\sqrt[t]{\varpi_F}}$ is an isomorphism, notice that the right side is a group of cardinality $t = [E_t: \ur F]= \# \Gal {E_t}{\ur F}$ because $X^t - 1$ has all its roots in $\ur F$: indeed, the polynomial $X^t - \bar 1$ is separable and has all of its roots in $\bar \kappa_F = \kappa_{\ur F}$ which can be lifted by Hensel's Lemma \ref{Apendice:Hensel's Lemma} to roots in $\ur F$. Therefore it is enough to show that this morphism is injective, which is immediate by what we have just already proven: $E_t$ is generated by $\sqrt[t]{\varpi_F}$ over $\ur F$. Finally, notice that the morphism is well defined: $\frac{\sigma (\sqrt[t]{\varpi_F})}{ \sqrt[t]{\varpi_F}}$ is a root of $X^t - 1$.
+\end{proof}
+
+\begin{obs}
+Because $\tr F = \lim_{E \longrightarrow} E/\ur F$ is the direct limit of the finite extensions $E / \ur F$ with degree coprime to $p$ and $E \subset \sep F$, then taking Galois, one can easily check that
+\[
+ \Gal {\tr F } {\ur F} = \varprojlim_{t \text{ coprime to $p$}} \Gal {E_t} {\ur F} \cong \varprojlim_{p \not \mid t} \mu_t (\ur F),
+\]
+in virtue of the previous proposition. More over, this implies
+\[
+ \Gal {\tr F} {\ur F} \cong \varprojlim_{\ell \neq p} \integers_{\ell},
+\]
+where $\integers_\ell$ are the $\ell$-adic integers.
+\end{obs}
+\begin{proof}
+The proof is completely analogous to that of Observation \ref{obs:write Gal Fur /F as a projective limit}.
+\end{proof}
+
+\begin{definition}
+We write $\wild F := \Gal {\sep F} {\tr F}$ for the \textbf{wild inertia group} of $F$. Notice that unramified extensions are tamely ramified, thus $\ur F \subset \tr F$, and then $\wild F \subset \inercia F$.
+\end{definition}
+
+Notice that the wild inertia group $\wild F$ of $F$ is a closed subgroup of $G_F$, thus it is a profinite group with the subspace topology (which is the krull topology).
+
+\begin{proposition}
+The group $\wild F$ is a pro-$p$-group.
+\end{proposition}
+\begin{proof}
+Indeed, $\wild F$ is a projective limit of finite $p$-groups:
+\[
+    \wild F = \varprojlim_{p \not \mid t} \Gal {E_t}{\ur F},
+\]
+and Proposition \ref{proposition:for each t coprime with p Fur has a unique finite extension Et of degree t} says that $\Gal {E_t} {\ur F} \cong \mu_t (\ur F) \cong \integers/t \integers$. Therefore $\wild F$ is a pro-$p$-group by definition (see \cite{ramakrishnan1998fourierAnalysisOnNumberFields}).
+\end{proof}
+
+\begin{proposition}
+$\wild F$ is the unique $p$-Sylow subgroup of $\inercia F$.
+\end{proposition}
+\begin{proof}
+In order to see that $\wild F$ is the unique $p$-Sylow subgroup of $\inercia F$, it is enough to show that $\wild F \triangleleft \inercia F$ and that $[\inercia F : \wild F]$ is coprime with $p$ as a supernatural number. Indeed, $\wild F$ is normal in $G_F$ because $\tr F / F$ is Galois, and $[\inercia F : \wild F]$ is coprime with $p$ because $\inercia F / \wild F$ is the projective limit $\varprojlim_{\ell \neq p} \integers_\ell$ of pro-$\ell$-groups with $\ell \neq p$.
+\end{proof}
+
+\bigskip
+
+\begin{Definition}
+The \textbf{Weil group} $\weil F$, at least algebraically, is the subgroup of $G_F$ defined as the inverse image of $U^{-1}(\langle \Phi_F \rangle)$. In other words,
+\[
+    \weil F = \inercia F \cdot \langle \varphi \rangle,
+\]
+where $\varphi$ is a Frobenius element (notice that $\weil F$ doesn't depend on the choice of $\varphi$).
+\end{Definition}
+
+Observe that $\weil F$ is the semi-direct product of $\inercia F$ and $\langle \varphi \rangle$: $\inercia F$ is normal because is the kernel of the map $U$, and $\inercia F \cap \langle \varphi \rangle = \{1\}$. In particular every element $\sigma \in \weil F$ can be uniquely written as $\sigma = i \varphi^n$ for some $i \in \inercia F$ and $n \in \integers$.
+
+\begin{proposition}
+The Weil group has the following properties:
+\begin{enumerate}
+\item $\weil F$ is dense in $G_F$.
+\item $\weil F \triangleleft G_F$.
+\item Because $\weil F$ is a group, to define a topology in $\weil F$, it is enough to define a neighbourhood basis for the identity of $\weil F$: these open sets will be those of $\inercia F$ in its subspace topology respect to $G_F$.
+
+Whats more, this topology makes $\weil F$ a \textit{locally profinite} group, and the inclusion $\iota_F : \weil F \hookrightarrow G_F$ is continuous.
+\item We have a continuous homomorphism
+\begin{align*}
+\Abs \cdot _F : \weil F &\longrightarrow \rationals^{\times} \subset \reals^{\times} \\
+\sigma &\longmapsto \Abs \sigma _F := q^{- v_F (\sigma)},
+\end{align*}
+where $v_F (\sigma)$ denotes the integer $n$ such that $U(\sigma) = \Phi_F^n$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+In what follows, we will identify $\hat \integers$ with $\Gal {\ur F} F$ and $\integers$ with $\weil F$ via $U$.
+\begin{enumerate}[(a)]
+\item Let $\sigma \in G_F$. Then $U (\sigma) \in \hat \integers$ has an element of $\integers$ arbitrarily near because $\integers \subset \hat \integers$ is dense. By basic properties of the Krull topology, to show that $\weil F$ is dense in $G_F$, it is enough to show that there is an element of $\weil F$ inside $\sigma \Gal {\sep F}{E}$ for any finite Galois extension $E/F$. But $U(\Gal {\sep F} E) = \Gal {\ur F} {E \cap \ur F} = \Gal {\ur F} { \ur E}$; this last group is open in the Krull topology because $\ur E / F$ is a finite extension, thus it contains an element of $\integers$. Taking preimage, we see that $\sigma \Gal {\sep F} {E}$ contains an element of $\weil F$. This proves the first assertion.
+\item Obvious: $\weil F = U^{-1} (\integers)$ and $\integers$ is normal in $\hat \integers$.
+\item Notice that around each element $x = i \varphi^n \in \weil F$ with $i \in \inercia F$ a neighbourhood basis for $x$ is $\{U \cdot \varphi^n\}_U$ with $U$ ranging over the open sets around $i$ in the subspace topology of $\inercia F$.
+
+First, it is a topological group because the map
+\begin{align*}
+\weil F \times \weil F &\longrightarrow \weil F \\
+(x,y) &\longmapsto xy^{-1}
+\end{align*}
+is continuous, indeed, if $x = i \varphi^n$ with $i \in \inercia F$ and $y = j \varphi^m$ with $j \in \inercia F$ and
+\[
+    xy^{-1} = i \varphi^n \varphi^{-m} j^{-1} = i \varphi^{n-m}j^{-1} = i (\varphi^{n-m} j^{-1} \varphi^{m-n}) \varphi^{n-m},
+\]
+then it is enough to check that there are open subsets of $\inercia F$, say $U$ and $V$, such that $(U \varphi^{n}) \cdot (V \varphi^{m}) \subset W \cdot \varphi^{n - m}$ for any $W \ni i (\varphi^{n-m} j^{-1} \varphi^{m-n})$ open subset of $\inercia F$. Indeed, we can find such $U$ and $V$ because the map
+\begin{align*}
+\inercia F \times \inercia F &\longrightarrow \inercia F \\
+(i, j) &\longmapsto i \varphi^{n-m} j^{-1} \varphi^{m-n}
+\end{align*}
+is continuous for any $n,m \in \integers$ fixed.
+
+It is locally compact because any $x = i \varphi^n \in \weil F$ is in the open compact neighbourhood $\inercia F \varphi^n$: the topology that we gave $\weil F$ was so that $\inercia F$ is a topological subspace, and $\inercia F$ has the induced topology of the profinite group $G_F$, thus $\inercia F$ is also compact because it is closed in $G_F$; by construction of $\weil F$, $\inercia F$ is open. What is more, a basis of open subgroups of $\inercia F$ form a neighbourhood basis of the identity in $\weil F$; open subgroups in topological groups are closed, therefore these open subgroups are compact in the subspace topology of $\inercia F$, because $\inercia F$ is. This proves that $\weil F$ is locally profinite.
+
+Notice that the map $v_F : \weil F \to \integers, i \phi^n \mapsto n$ is continuous with the discrete topology of $\integers$. Also, if we identify $\hat \integers$ with $\Gal {\ur F} F$, we have that the subspace topology of $\integers$ in $\hat \integers$ is the discrete topology.
+Finally, to see that $\iota_F : \weil F \hookrightarrow G_F$ is continuous, let $\sigma \Gal {\sep F} E$ be a basic open set in $G_F$ with $E/F$ finite Galois extension, then $U(\sigma \Gal {\sep F} E) = \rest{\sigma}{\ur F} \Gal {\ur F} {\ur E}$ is open in $\Gal {\ur F} F$, thus identifying it with $\hat \integers$, we have that $\weil F \cap \iota_F ^{-1} (\sigma \Gal {\sep F} E)$ corresponds via the continuous map $\weil F \to \integers$ with the preimage of $\rest{\sigma}{\ur F} \Gal {\ur F} {\ur E} \cap \integers$, therefore it is open.
+\item In the last paragraph we have seen that $v_F : \weil F \twoheadrightarrow \integers$ is continuous ($\integers$ has the discrete topology). The map $\integers \to \reals^\times, n \mapsto q^{-n}$ is again continuous, therefore the composition $\Abs \cdot _F : \sigma \mapsto q^{-v_F (\sigma)}$ is continuous.
+\end{enumerate}
+\end{proof}
+
+\begin{remark}
+\begin{enumerate}
+\item[]
+\item $\weil F$ doesn't have the subspace topology in $G_F$, indeed, if so $\inercia F$ would be open in $G_F$, thus of finite index ($G_F$ is compact), however, it is not the case: $U$ has infinite image.
+
+\item $\inercia F$ is a maximal compact subgroup of $\weil F$, indeed, $\weil F / \inercia F$ is isomorphic to $\mathbb Z$ as a discrete topological group (by last paragraph of item (c) the homeomorphism is induced by $v_F : \weil F \to \integers$), so if there was a compact subgroup $W\subset \weil F$ such that $W \supsetneq \inercia F$, then it would be mapped to a nontrivial compact subgroup of $\integers$, thus finite because $\integers$ is discrete, but $\integers$ doesn't have non trivial finite subgroups.
+\end{enumerate}
+\end{remark}
+
+\begin{proposition}
+Let $E/F$ be a finite extension with $E \subset \sep F$. Then $G_E \hookrightarrow G_F$ induces a homeomorphism
+\[
+    \weil E \isomlongrightarrow W_F \cap G_E =: \weil F^E.
+\]
+whats more, $\weil F^E$ is an open subgroup of finite index in $\weil F$, and it is normal if and only if $E/F$ is Galois; when this happens, $\weil F / \weil F^E \cong G_F / G_E \cong \Gal E F$. Conversely, if $W$ is a open subgroup of finite index of $\weil F$, then $W = \weil F^E$ for some finite extension $E/F$ with $E \subset \sep F$.
+\end{proposition}
+\begin{proof}
+Obviously it is a bijection.
+
+Now, let $f = f(E/F)$ be the residual degree of $E$ over $F$. We have that $f = [\kappa_E : \kappa_F]$, thus Frobenius elements in $G_E$ correspond with $f$-powers of Frobenius elements in $G_F$. Therefore, we can see that basic open sets from both sides correspond to open sets in the other side. This proves that is a homeomorphism.
+
+The map of homogeneous spaces $\weil F / \weil F^E \to G_F / G_E$ induced by taking quotients is injective, and by density of the Weil group it is surjective, so it is a bijection. The fact that $\weil F^E$ is open in $\weil F$ comes from the continuity of $\iota_F$, and that it has finite index is due to the beginning of this paragraph: $[\weil F : \weil F^E] = [G_F : G_E] = [E : F] < +\infty$. If $E/F$ is Galois, $G_E \triangleleft G_F$, then $\weil F ^E \triangleleft \weil F$. Conversely, is $\weil F^E \triangleleft \weil F$ then $G_E \triangleleft G_F$ by density, i.e., $E/F$ is Galois.
+
+\bigskip
+
+Let $W \subset \weil F$ be an open subgroup of finite index. Let $I = \inercia F \cap W$; it is an open subgroup (therefore also closed) of $\inercia F$, then by compactness of $\inercia F$, we have that $I$ has finite index $t$ in $\inercia F$. Because $\inercia F = \Gal {\sep F} {\ur F}$, Galois correspondence implies that there exists a finite extension $E$ of $\ur F$, such that $I = \Gal {\sep F} {E}$. Let $\varphi_F \in \Gal {\ur F} F$ be the geometric Frobenius, write $E = \ur F (\alpha)$ for some primitive element $\alpha \in E$, we can extend $\varphi_F$ as the identity on $\alpha$, and then extend it again as an element of $\Gal {\sep F} F$; by construction, it will be a geometric Frobenius element $\varphi \in G_F$, such that $\varphi (\alpha) = \alpha$.
+
+Now, because $W$ has finite index in $\weil F$, there is an integers $r \geq 1$, such that $\varphi \in W$. Let $n$ be the minimum integer such that $i \varphi^n \in W$, for some $i \in \inercia F$. We affirm that $W = I \cdot \langle \varphi^n \rangle$. The inclusion $\supset$ is clear. For the converse, let $\sigma = i \varphi^j$ with $i \in \inercia F$; write $j = q n + s$, then $i \varphi^s = \sigma (\varphi^{n})^{-q} \in W$, so by minimality of $n$, $s = 0$ and $n \mid j$, i.e. $\varphi^j \in \langle \varphi^n \rangle$; in particular, $i = \sigma (\varphi^n)^{-q} \in W$ so $i \in W \cap \inercia F = I$. This proves the other inclusion $\subset$.
+
+Finally, let $L \subset \ur F$ be an unramified extension of $F$ of degree $n$. We will prove that $W = \weil F^T = \weil F \cap G_T$, where $T := L (\alpha)$ (Notice that $T/F$ is finite). Indeed, first we will show that $W \subset G_T$, then we will show that $[\weil F : W] \leq [\weil F : \weil F \cap G_T]$:
+\begin{enumerate}
+\item For this, it is enough to show that if $x \in L$ and $y = \alpha$ then $\sigma ( x) = x$ and $\sigma (y ) = y$ for all $\sigma \in W$. Because $W = I \langle \varphi^n \rangle$, it is enough to show this for $\sigma \in I = \Gal {\sep F} {\ur F (\alpha)}$ and $\sigma = \varphi^n$. First, suppose $\sigma \in I$:
+\[
+    \sigma (x) = x \text{ because $x \in L \subset \ur F$},
+\]
+and
+\[
+    \sigma (y) = y \text{ because $I = \Gal {\sep F} {\ur F (\alpha)}$}.
+\]
+Then, suppose $\sigma = \varphi^n$, on one hand, $L/F$ is an unramified extension of degree $n$, and because $\varphi^{-n}$ acts as $z \mapsto z^{q^n} \equiv z \mod \primo p_L$ (see \eqref{eq:action of a frobenius element (not geometric)}), i.e. the identity automorphism in $\Gal {\kappa_L} {\kappa_F}$ and the map $\Gal {L} F \to \Gal {\kappa_L} {\kappa_L}$ is an isomorphism because $L/F$ is unramified (see Observation \ref{obs:if L/F is finite unramified then it is isomorphic to its galois group}), we have that $\varphi^{-n}$ restricted to $L$ is the trivial automorphism, so $\varphi^n$ too, therefore
+\[
+    \sigma (x) = x.
+\]
+On the other hand, we chose at the beginning $\varphi$ such that $\varphi (\alpha) = \alpha$, in other words:
+\[
+    \varphi (y) = y, \text{ therefore } \sigma (y) = y.
+\]
+\item Lets compute $[\weil F, \weil F^T]$, by what we have already proven,
+\[
+    [\weil F , \weil F^T] = [G_F : G_T] =  [T : F] = [L(\alpha) : L][L : F]\geq t [L : F] = t n.
+\]
+But
+
+\[
+    [\weil F : W] = [\weil F : I \langle \varphi ^n \rangle] = [\inercia F : I][\langle \varphi \rangle : \langle \varphi ^n \rangle] = [E : \ur F] n = t n.
+\]
+Therefore $[\weil F : W] \leq [\weil F, \weil F^T]$, so $W = \weil F^T$.
+\end{enumerate}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+
+\appendix
+
+\section{Hensel's Lemma}\label{Apendice:Hensel's Lemma}
+
+Let $F$ be a \textit{complete} field with respect to a nonarquimidean absolute value $\abs \cdot _v$ (for example if $F$ is a local field). We will say that a polynomial $f \in \O_F [X]$ is \textbf {primitive}, if its reduction $\mod \primo p_F$ in $\kappa_F [X]$ is not the zero polynomial, i.e.
+\[
+    \max \{\abs {a_0}_v, \ldots, \abs{a_n}_v\} = 1,
+\]
+where $f (X) = a_0 + a_1 X + \cdots + a_n X^n \in \O_F [X]$.
+
+\begin{Theorem}[Hensel's Lemma]
+If a primitive polynomial $f \in \O_F [X]$ admits a $\mod \primo p_F$ factorization
+\[
+    f(X) \equiv \bar g (X) \bar h (X) \mod \primo p_F
+\]
+into relatively prime polynomials $\bar g, \bar h \in \kappa_F [X]$, then $f$ admits a factorization
+\[
+    f(X) = g(X) h(X)
+\]
+into polynomials $g, h \in \O_F [X]$ such that $\deg (g) = \deg (\bar g)$ and
+\[
+    g(X) \equiv \bar g (X) \mod \primo p_F \quad \text{ and } \quad h(X) \equiv \bar h (X) \mod \primo p_F.
+\]
+\end{Theorem}
+\begin{proof}
+See \cite{neukirch2013algebraicNumberTheory}[Hensel's Lemma (4.6)].
+\end{proof}
+
+\begin{remark}
+We cannot guarantee that the degree of $g$ and $h$ coincide with the degree of $\bar g$ and $\bar h$, respectively, at the same time because the degree of $f$ may diminish when taking $\mod \primo p _F$: being primitive doesn't imply that the principal coefficient of $f$ is not divisible by $\primo p _F$. However, if we assume that the principal coefficient of $f$ is not divisible by $\primo p_F$, i.e. it is in $\O_F^\times$ (for example when $f$ is monic), we can deduce that if $\deg g = \deg \bar g$, then from
+\[
+    \deg g + \deg h = \deg f = \deg \bar f = \deg \bar g + \deg \bar h
+\]
+we have $\deg h = \deg \bar h$.
+\end{remark}
+
+
+\section{The universal property of the projective limit}\label{Apendice:universal property - projective limit}
+
+Let $I$ be a preordered set of indices and let $\{G_i\}_{i \in I}$ be a family of sets. Assume further that for every pair of indices $i,j \in I$ with $i \leq j$, we have an associated mapping $\varphi_{ij} : G_j \to G_i$, subject to the following conditions:
+\begin{enumerate}[(i)]
+\item $\varphi_{ii} = \Id_{G_i}$ for all $i \in I$.
+\item $\varphi_{ij} \circ \varphi_{jk} = \varphi_{ik}$ for all $i\leq j \leq k$ in $I$.
+\end{enumerate}
+Then the system $(G_i, \varphi_{ij})$ is called a \textbf{projective} (or \textbf{inverse}) system.
+
+\begin{definition}
+Let $(G_i, \varphi_{ij})$ be a projective system of sets. Then we define the \textbf{projective limit} (or \textbf{inverse limit}) of the system, denoted by $\varprojlim_i G_i$, by
+\[
+    \varprojlim_i G_ := \Set{(g_i)_i \in \prod_{i \in I} G_i | i \leq j \Rightarrow \varphi_{ij} (g_j) = g_i}.
+\]
+\end{definition}
+Note that $\varprojlim_i G_i$ is a subset of the direct product $\prod_{i \in I} G_i$, thus it comes equipped with projection maps $p_j : \varprojlim_i G_i \to G_j$ for all $j \in I$. Furthermore, we have the next \textit{universal property}:
+
+\begin{Theorem}[Universal property of the projective limit]
+Let $H$ be a nonempty set together with maps $\psi_i : H \to G_i$ for all $i \in I$ such that they are compatible with the projective system $(G_i, \varphi_{ij})$, more precisely, for each pair $i,j \in I$ with $i \leq j$, the following diagram commutes:
+\[
+    \begin{tikzcd}
+        & H \ar[dl, "\psi_j"] \ar[dr, "\psi_i"] & \\
+        G_j \ar[rr, "\varphi_{ij}"]& &  G_i
+    \end{tikzcd}
+\]
+Then there exists a unique map $\psi : H \to \varprojlim_i G_i$ such that for each $i \in I$ the diagram
+\[
+    \begin{tikzcd}
+    H \ar[r, "\psi"] \ar[rd, "\psi_i"] & \varprojlim_i G_i \ar[d, "p_i"]\\
+    & G_i
+    \end{tikzcd}
+\]
+also commutes.
+\end{Theorem}
+
+This construction was done in the category of sets, but replacing the inverse system $(G_i, \varphi_{ij})$ with topological groups and morphisms $\varphi_{ij}$ of topological groups, and giving $\varprojlim_i G_i \subset \prod_{i \in I} G_i$ the subspace topology of the product topology results in a topological group in its own right, enjoying the same universal property as before, but where the set $H$ is a topological group and all the maps are morphisms in the category of topological groups.
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%subfile{"nombre de carpeta"/"Nombre del archivo"}
+%\subfile{Capitulos/Apendice-CurvasElipticas.tex}
+
+
+
+
+
+
+
+
+%--------------------------------
+\newpage
+
+\bibliographystyle{alpha}
+\bibliography{main}{}
+%--------------------------------
+
+
+
+
+
+
+
+\end{document}
+
