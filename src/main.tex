@@ -43,6 +43,8 @@
 
 \usepackage[english,activeacute]{babel} %CAUSA PROBLEMAS PARA COMPILAR TIKZCD QUE USA "" PARA DESIGNAR CADA TEXTO DE UNA FLECHA. SE ARREGLA USANDO \usetikzlibrary{babel} despues de \usepackage{tikz-cd}.
 
+\usepackage{epigraph}
+
 \usepackage{braket} %para definir \set , \Set y que los conjuntos se vean mas lindos
 
 \usepackage{mathtools}
@@ -289,6 +291,11 @@
 %flecha de isomorfismo a izquierda largo \isomleftarrow
 \newcommand{\isomlongleftarrow}{\overset{\sim}{\longleftarrow}}
 
+%flecha de gancho hook a derecha largo \hooklongrightarrow
+\newcommand{\hooklongrightarrow}{\lhook\joinrel\longrightarrow}
+%flecha de gancho hook a izquierda largo \hooklongleftarrow
+\newcommand{\hooklongleftarrow}{\longleftarrow\joinrel\rhook}
+
 
 \renewcommand{\hat}[1]{\widehat{#1}}
 \renewcommand{\bar}[1]{\overline{#1}}
@@ -465,6 +472,8 @@
 %--------------------------------- ACA VA LA TABLA DE CONTENIDOS
 
 \tableofcontents
+
+\epigraph{God exists since mathematics is consistent, and the Devil exists since we cannot prove it.}{\textit{André Weil}}
 
 %---------------------------------
 
