@@ -290,15 +290,37 @@
 %un poco de typeset para categorias
 \newcommand{\catname}[1]{{\operatorfont\textbf{#1}}}
 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{stackengine} %%% esto es para estaquear simbolos uno arriba de otro: crear el \isomrightarrow y el \setminus mas bonito
+
+
+
 %flecha de isomorfismo a derecha corto \isomrightarrow
-\newcommand{\isomrightarrow}{\overset{\sim}{\rightarrow}}
+\newcommand{\isomrightarrow}{\mathrel{\stackon[1pt]{$\rightarrow$}{\resizebox{!}{3pt}{$\sim$}}}}
 %flecha de isomorfismo a derecha largo \isomrightarrow
-\newcommand{\isomlongrightarrow}{\overset{\sim}{\longrightarrow}}
+\newcommand{\isomlongrightarrow}{\mathrel{\stackon[1pt]{$\longrightarrow$}{\resizebox{!}{3pt}{$\sim$}}}}
+
+
+
 
 %flecha de isomorfismo a izquierda corto \isomleftarrow
-\newcommand{\isomleftarrow}{\overset{\sim}{\leftarrow}}
+\newcommand{\isomleftarrow}{\mathrel{\stackon[1pt]{$\leftarrow$}{\resizebox{!}{3pt}{$\sim$}}}}
 %flecha de isomorfismo a izquierda largo \isomleftarrow
-\newcommand{\isomlongleftarrow}{\overset{\sim}{\longleftarrow}}
+\newcommand{\isomlongleftarrow}{\mathrel{\stackon[1pt]{$\longleftarrow$}{\resizebox{!}{3pt}{$\sim$}}}}
+
+
+%setminus redefinido para que se vea mas lindo
+\renewcommand{\setminus}{\mathrel{\stackon[0.5pt]{}{$\smallsetminus$}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
 
 %flecha de gancho hook a derecha largo \hooklongrightarrow
 \newcommand{\hooklongrightarrow}{\lhook\joinrel\longrightarrow}
