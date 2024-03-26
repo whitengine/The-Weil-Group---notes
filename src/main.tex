@@ -20,6 +20,8 @@
 \usepackage{framed}
 \usepackage[dvipsnames]{xcolor} %agrega mas colores para xcolor.
 
+\usepackage{tcolorbox}
+
 \usepackage{xparse}
 \usepackage{xstring}
 
@@ -72,22 +74,73 @@
     filecolor=black,      % color of file links
     urlcolor=cyan}           % color of external links
 
+
+\definecolor{violet}{rgb}{0.0,0.2,0.7}
+\definecolor{rouge2}{rgb}{0.8,0.0,0.2}
+\usepackage{hyperref}
+\hypersetup{
+    %bookmarks=true,         % show bookmarks bar?
+    unicode=false,          % non-Latin characters in Acrobat’s bookmarks
+    pdftoolbar=true,        % show Acrobat’s toolbar?
+    pdfmenubar=true,        % show Acrobat’s menu?
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={},    % title
+    pdfauthor={},     % author
+    colorlinks=true,       % false: boxed links; true: colored links
+   linkcolor=violet,          % color of internal links
+    citecolor=rouge2,        % color of links to bibliography
+    filecolor=black,      % color of file links
+    urlcolor=cyan}           % color of external links
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{amsthm}
 
-\theoremstyle{plain}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{customTheorem}% name of the style
+  {}% space above
+  {}% space below|
+  {\itshape}% body font
+  {}% indent amount
+  {\bfseries}% theorem head font
+  { {\rule[0.6ex]{0.5cm}{0.03cm}}}% punctuation after theorem head
+  { }% space after theorem head
+  {\ifstrempty{#3}{#1 \thmnumber{#2}.}{#1 \thmnumber{#2}. \textup{(#3)}}}% theorem head spec
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{customDefinition}% name of the style
+  {}% space above
+  {}% space below
+  {}% body font
+  {}% indent amount
+  {\bfseries}% theorem head font
+  { {\rule[0.6ex]{0.5cm}{0.03cm}}}% punctuation after theorem head
+  { }% space after theorem head
+  {\ifstrempty{#3}{#1 \thmnumber{#2}.}{#1 \thmnumber{#2}. \textup{(#3)}}}% theorem head spec
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\theoremstyle{customTheorem}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{proposition/definition}[theorem]{Proposition/Definition}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{conjecture}[theorem]{Conjecture}
-\newtheorem{afirmacion}[theorem]{Assertion}
-\newtheorem{recuerdo}[theorem]{Reminder}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{review}[theorem]{Review}
 
-\theoremstyle{definition}
+
+
+\theoremstyle{customDefinition}
 \newtheorem{definition}[theorem]{Definition}
-\newtheorem{hypothesis}[theorem]{hypothesis}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
 \newtheorem{example}[theorem]{Example}
 \newtheorem{obs}[theorem]{Observation}
 \newtheorem{notation}[theorem]{Notation}
@@ -99,10 +152,17 @@
 \newtheorem{warn}[theorem]{\textbf{WARNING}}
 \renewenvironment{warning}{\begin{warn}}{\end{warn}}
 
+
+
+
+%me gusta renovar el ambiente demostración para que este subrayado
+\renewenvironment{proof}[1][Proof]{\noindent \textit{\underline{#1}.\hspace{2mm}}}{\hfill\qed}
+
+
 %crear ejercicio
 \newtheorem{exercise}[theorem]{Exercise}
 %solución
-\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{solution}{\begin{proof}[\underline{Solution}]}{\end{proof}}
 
 
 
@@ -116,29 +176,30 @@
 
 %se puede cambiar la tonalidad de un color "yellow!80" es el color amarillo pero al 80%  y el 20% es mezclado con blanco, i.e. está aclarado. Pero "yellow!80!Black" es 80% amarillo y 20% negro, i.e. es obscurecido 20%.
 
-\newenvironment{Definition}{\colorlet{shadecolor}{Apricot!12} \begin{shaded} \begin{definition} }{ \end{definition} \end{shaded} }
 
-\newenvironment{Example}{\colorlet{shadecolor}{Goldenrod!16} \begin{shaded} \begin{example}}{ \end{example} \end{shaded}}
+\newenvironment{Definition}{\begin{tcolorbox}[colback=Apricot!12] \begin{definition} }{ \end{definition} \end{tcolorbox} }
 
-\newenvironment{Remark}{\colorlet{shadecolor}{Orchid!12} \begin{shaded} \begin{remark}}{ \end{remark} \end{shaded}}
+\newenvironment{Example}{\begin{tcolorbox}[colback=Goldenrod!16] \begin{example}}{ \end{example} \end{tcolorbox}}
 
-\newenvironment{Warning}{\colorlet{shadecolor}{red!12} \begin{shaded} \begin{warning}}{ \end{warning} \end{shaded}}
+\newenvironment{Remark}{\begin{tcolorbox}[colback=Orchid!12] \begin{remark}}{ \end{remark} \end{tcolorbox}}
 
-\newenvironment{Conjecture}{\colorlet{shadecolor}{magenta!16} \begin{shaded} \begin{conjecture}}{ \end{conjecture} \end{shaded}}
+\newenvironment{Warning}{\begin{tcolorbox}[colback=red!12] \begin{warning}}{ \end{warning} \end{tcolorbox}}
 
-\newenvironment{Theorem}{\colorlet{shadecolor}{OliveGreen!18} \begin{shaded} \begin{theorem}}{ \end{theorem} \end{shaded}}
+\newenvironment{Conjecture}{\begin{tcolorbox}[colback=magenta!16] \begin{conjecture}}{ \end{conjecture} \end{tcolorbox}}
 
-\newenvironment{Lemma}{\colorlet{shadecolor}{LimeGreen!12} \begin{shaded} \begin{lemma}}{ \end{lemma} \end{shaded}}
+\newenvironment{Theorem}{\begin{tcolorbox}[colback=OliveGreen!18] \begin{theorem}}{ \end{theorem} \end{tcolorbox}}
 
-\newenvironment{Proposition}{\colorlet{shadecolor}{Green!12} \begin{shaded} \begin{proposition}}{ \end{proposition}\end{shaded}}
+\newenvironment{Lemma}{\colorlet{shadecolor}{LimeGreen!12} \begin{tcolorbox}[colback=LimeGreen!12] \begin{lemma}}{ \end{lemma} \end{tcolorbox}}
 
-\newenvironment{Corollary}{\colorlet{shadecolor}{TealBlue!16} \begin{shaded} \begin{corollary}}{ \end{corollary} \end{shaded}}
+\newenvironment{Proposition}{\begin{tcolorbox}[colback=Green!12] \begin{proposition}}{ \end{proposition}\end{tcolorbox}}
 
-\newenvironment{Obs}{\colorlet{shadecolor}{Dandelion!22} \begin{shaded} \begin{obs}}{ \end{obs} \end{shaded}}
+\newenvironment{Corollary}{\begin{tcolorbox}[colback=TealBlue!16] \begin{corollary}}{ \end{corollary} \end{tcolorbox}}
 
-\newenvironment{Exercise}{\colorlet{shadecolor}{Lavender!12} \begin{shaded} \begin{exercise}}{ \end{exercise} \end{shaded}}
+\newenvironment{Obs}{\begin{tcolorbox}[colback=Dandelion!22] \begin{obs}}{ \end{obs} \end{tcolorbox}}
 
-\newenvironment{Construction}{\colorlet{shadecolor}{Brown!20!Red!10} \begin{shaded} \begin{construction}}{ \end{construction} \end{shaded}}
+\newenvironment{Exercise}{\begin{tcolorbox}[colback=Lavender!12] \begin{exercise}}{ \end{exercise} \end{tcolorbox}}
+
+\newenvironment{Construction}{\begin{tcolorbox}[colback=Brown!20!Red!10] \begin{construction}}{ \end{construction} \end{tcolorbox}}
 
 %%%%%COLORES%%%%%%%%%%%%
 %Hay varios comandos del paquete Xcolor:
@@ -157,6 +218,17 @@
 %marco los colores lindos: red, Cyan, Magenta, Yellow, Black, Gray, White,  lime, Orange, pink, teal, Violet
 
 %Colores que incluye el paquete dvipsnames: Apricot (color beige), Brown, Goldenrod, JungleGreen, Salmon, Lavender, SpringGreen, Turquoise, Plum, Emerald, BurntOrange (naranja piola), ForestGreen (verde oscuro), BrickRed (rojo obscuro)
+
+\definecolor{pedroblue}{RGB}{43, 138, 227}
+\definecolor{pedrogreen}{RGB}{86, 190, 82}
+\newcommand{\pedroblue}[1]{\textcolor{pedroblue}{#1}}
+\newcommand{\pedrogreen}[1]{\textcolor{pedrogreen}{#1}}
+
+
+\definecolor{lightblueinkscape}{RGB}{53, 132, 228}
+\definecolor{lightredinkscape}{RGB}{237,51,59}
+\newcommand{\lightblueinkscape}[1]{\textcolor{lightblueinkscape}{#1}}
+\newcommand{\lightredinkscape}[1]{\textcolor{lightredinkscape}{#1}}
 
 
 \newcommand{\red}[1]{\textcolor{BrickRed}{#1}}
